@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
 public class TriviaGame extends JFrame implements ActionListener, KeyListener {
     private String chosenCategory;
     private JPanel gamePanel;
+    private JLabel picture;
 
     public TriviaGame(String chosenCategory) {
         this.chosenCategory = chosenCategory;
