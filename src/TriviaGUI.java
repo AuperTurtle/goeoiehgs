@@ -11,10 +11,10 @@ public class TriviaGUI extends JFrame implements ActionListener, KeyListener {
     private JPanel mainPanel;
 
     public TriviaGUI() {
-        test();
+        startPanel();
     }
 
-    private void test() {
+    private void startPanel() {
         setContentPane(mainPanel);
         setTitle("Trivia Game!");
         setSize(400, 200);
@@ -31,7 +31,6 @@ public class TriviaGUI extends JFrame implements ActionListener, KeyListener {
             String temp = typeSelector.getSelectedItem().toString();
             if (temp.equals("Cat")) {
                 this.dispose();
-                test();
             }
             if (temp.equals("Dog")) {
                 System.out.println("its a dog");
