@@ -34,6 +34,7 @@ public class tempParser {
             JSONObject pictureObject = nodeObject.getJSONObject("main_picture");
             String pictureLink = pictureObject.getString("large");
             System.out.println("Title: " + animeTitle + " Picture: " + pictureLink);
+            //put image code from load weather and make 2 arrays zzz
         }
     }
 }
