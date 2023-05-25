@@ -15,15 +15,19 @@ import javax.swing.*;
 
 public class tempParser {
     public static ArrayList<String> animeList;
+    public static ArrayList<String> animeList2;
     public static ArrayList<String> animePicture;
+    public static ArrayList<Integer> animeIDList;
 
     public tempParser() {
         this.animeList = new ArrayList<String>();
+        this.animeList2 = new ArrayList<String>();
         this.animePicture = new ArrayList<String>();
+        this.animeIDList = new ArrayList<Integer>();
     }
 
     public static void plswork() {
-        String endpoint = "https://api.myanimelist.net/v2/anime/ranking?ranking_type=all&limit=20";
+        String endpoint = "https://api.myanimelist.net/v2/anime/ranking?ranking_type=all&limit=500";
         String url = endpoint;
         String urlResponse = "";
         try {
@@ -56,13 +60,21 @@ public class tempParser {
                 HttpClient client = HttpClient.newHttpClient();
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                 urlResponse2 = response.body();
-                System.out.println(urlResponse2);
+//                System.out.println(urlResponse2);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
 
-            JSONObject jsonObj2 = new JSONObject(urlResponse);
-            System.out.println(jsonObj2.getInt("rank"));
+            JSONObject jsonObj2 = new JSONObject(urlResponse2);
+            JSONArray jsonArr2 = jsonObj2.getJSONArray("pictures");
+            animeList.add(animeTitle);
+
+            if (selectPicture(i) == 5000) {
+                animePicture.add(pictureLink);
+            }   else    {
+                JSONObject morePictures = jsonArr2.getJSONObject(selectPicture(i));
+                animePicture.add(morePictures.getString("large"));
+            }
             //wtf is parsing
 
 //            JSONObject alternativeTitle = nodeObject.getJSONObject("alternative_title");
@@ -70,8 +82,8 @@ public class tempParser {
 //            String jpTitle = alternativeTitle.getString("ja");
 //            System.out.println(enTitle + " ; " + jpTitle);
             //System.out.println("Title: " + animeTitle + " Picture: " + pictureLink);
-            animeList.add(animeTitle);
-            animePicture.add(pictureLink);
+//            animePicture.add(pictureLink);
+//            animePicture.add(morePictures.getString(1));
             //put image code from load weather and make 2 arrays zzz
             /*
             private void loadWeather(String zip) {
@@ -96,5 +108,127 @@ public class tempParser {
             }
             */
         }
+    }
+
+    private static int selectPicture(int pic) {
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 1) {
+            return 8;
+        }
+        if (pic == 2) {
+            return 1;
+        }
+        if (pic == 3) {
+            return 5;
+        }
+        if (pic == 4) {
+            return 1;
+        }
+        if (pic == 9) {
+            return 0;
+        }
+        if (pic == 17) {
+            return 2;
+        }
+        if (pic == 18) {
+            return 0;
+        }
+        if (pic == 19) {
+            return 5;
+        }
+        if (pic == 21) {
+            return 3;
+        }
+        if (pic == 25) {
+            return 1;
+        }
+        if (pic == 26) {
+            return 1;
+        }
+        if (pic == 28) {
+            return 5;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+
+        return 5000;
     }
 }
