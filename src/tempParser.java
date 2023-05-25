@@ -32,7 +32,6 @@ public class tempParser {
             HttpClient client = HttpClient.newHttpClient();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             urlResponse = response.body();
-            System.out.println(urlResponse);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -46,6 +45,25 @@ public class tempParser {
             String animeTitle = nodeObject.getString("title");
             JSONObject pictureObject = nodeObject.getJSONObject("main_picture");
             String pictureLink = pictureObject.getString("large");
+            int animeID = nodeObject.getInt("id");
+
+            String endpoint2 = "https://api.myanimelist.net/v2/anime/" + animeID + "?fields=id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_episodes,start_season,broadcast,source,average_episode_duration,rating,pictures,background,related_anime,related_manga,recommendations,studios,statistics";
+            String url2 = endpoint2;
+            String urlResponse2 = "";
+            try {
+                URI myUri = URI.create(url2); // creates a URI object from the url string
+                HttpRequest request = HttpRequest.newBuilder().header("X-MAL-CLIENT-ID", "0db950674f429006c3ee9393aae7cb43").uri(myUri).build();
+                HttpClient client = HttpClient.newHttpClient();
+                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                urlResponse2 = response.body();
+                System.out.println(urlResponse2);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+            JSONObject jsonObj2 = new JSONObject(urlResponse);
+            System.out.println(jsonObj2.getInt("rank"));
+            //wtf is parsing
 
 //            JSONObject alternativeTitle = nodeObject.getJSONObject("alternative_title");
 //            String enTitle = alternativeTitle.getString("en");
