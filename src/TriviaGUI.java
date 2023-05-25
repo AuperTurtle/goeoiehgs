@@ -30,10 +30,14 @@ public class TriviaGUI extends JFrame implements ActionListener, KeyListener {
         if (source instanceof JButton) {
             String temp = typeSelector.getSelectedItem().toString();
             if (temp.equals("Cat")) {
-                this.dispose();
+                System.out.println("its a cat");
             }
             if (temp.equals("Dog")) {
                 System.out.println("its a dog");
+            }
+            if (temp.equals("Anime")) {
+                this.dispose();
+                TriviaGame game = new TriviaGame("Cat");
             }
         }
     }

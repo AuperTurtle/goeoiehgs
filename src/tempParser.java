@@ -1,12 +1,25 @@
 //wow this class sucks
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+
 public class tempParser {
+    public static ArrayList<String> animeList;
+    public static ArrayList<String> animePicture;
+
     public tempParser() {
+        this.animeList = new ArrayList<String>();
+        this.animePicture = new ArrayList<String>();
     }
 
     public static void plswork() {
@@ -33,8 +46,37 @@ public class tempParser {
             String animeTitle = nodeObject.getString("title");
             JSONObject pictureObject = nodeObject.getJSONObject("main_picture");
             String pictureLink = pictureObject.getString("large");
-            System.out.println("Title: " + animeTitle + " Picture: " + pictureLink);
+
+//            JSONObject alternativeTitle = nodeObject.getJSONObject("alternative_title");
+//            String enTitle = alternativeTitle.getString("en");
+//            String jpTitle = alternativeTitle.getString("ja");
+//            System.out.println(enTitle + " ; " + jpTitle);
+            //System.out.println("Title: " + animeTitle + " Picture: " + pictureLink);
+            animeList.add(animeTitle);
+            animePicture.add(pictureLink);
             //put image code from load weather and make 2 arrays zzz
+            /*
+            private void loadWeather(String zip) {
+                weather = WeatherNetworking.getWeatherForZip(zip);
+                locationLabel.setText("Location: " + weather.getLocation());
+                if (showCelsiusCheckBox.isSelected()) {
+                    tempLabel.setText("Current temp: " + weather.getTempC() + "°C");
+                } else {
+                    tempLabel.setText("Current temp: " + weather.getTempF() + "°F");
+                }
+                conditionLabel.setText("Current condition: " + weather.getCondition());
+                try {
+                    URL imageURL = new URL(weather.getIconURL());
+                    BufferedImage image = ImageIO.read(imageURL);
+                    ImageIcon icon = new ImageIcon(image);
+                    conditionIcon.setIcon(icon);
+                } catch (IOException e) { }
+            }
+
+            private void clear() {
+                conditionIcon.setIcon(new ImageIcon("src/Question_mark_(black).svg.png"));
+            }
+            */
         }
     }
 }

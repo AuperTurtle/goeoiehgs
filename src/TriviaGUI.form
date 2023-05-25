@@ -31,12 +31,7 @@
           <model>
             <item value="Cat"/>
             <item value="Dog"/>
-            <item value="Turtle"/>
-            <item value="Temp"/>
-            <item value="Temp"/>
-            <item value="Temp"/>
-            <item value="Temp"/>
-            <item value="Temp"/>
+            <item value="Anime"/>
           </model>
         </properties>
       </component>
