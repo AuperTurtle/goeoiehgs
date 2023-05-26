@@ -67,6 +67,10 @@ public class tempParser {
 
             JSONObject jsonObj2 = new JSONObject(urlResponse2);
             JSONArray jsonArr2 = jsonObj2.getJSONArray("pictures");
+            JSONObject altTitles = jsonObj2.getJSONObject("alternative_titles");
+
+//            String animeTitle = jsonObj2.getString("title");
+            animeTitle += " ; " + altTitles.getString("en");
             animeList.add(animeTitle);
 
             if (selectPicture(i) == 5000) {
@@ -149,6 +153,195 @@ public class tempParser {
         }
         if (pic == 28) {
             return 5;
+        }
+        if (pic == 32) {
+            return 1;
+        }
+        if (pic == 37) {
+            return 1;
+        }
+        if (pic == 39) {
+            return 1;
+        }
+        if (pic == 40) {
+            return 1;
+        }
+        if (pic == 41) {
+            return 9;
+        }
+        if (pic == 43) {
+            return 1;
+        }
+        if (pic == 47) {
+            return 1;
+        }
+        if (pic == 52) {
+            return 1;
+        }
+        if (pic == 55) {
+            return 0;
+        }
+        if (pic == 56) {
+            return 3;
+        }
+        if (pic == 57) {
+            return 1;
+        }
+        if (pic == 63) {
+            return 2;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
+        }
+        if (pic == 0) {
+            return 4;
         }
         if (pic == 0) {
             return 4;
