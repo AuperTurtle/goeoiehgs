@@ -13,13 +13,18 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
     private JPanel gamePanel;
     private JLabel picture;
     private JLabel tempText;
+    private JTextField Answerbox;
     private JTextArea tempTitle;
     private int temp;
+    private tempParser gameAns;
+    private String answer;
 
     public TriviaGame(String chosenCategory) {
         this.chosenCategory = chosenCategory;
         gamePanel();
         this.temp = 0;
+        gameAns = null;
+
     }
 
     private void gamePanel() {
