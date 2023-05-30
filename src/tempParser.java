@@ -427,6 +427,5 @@ public class tempParser {
         return 5000;
     }
 
-    public String getAnswer() {
-    }
+
 }

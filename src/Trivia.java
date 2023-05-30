@@ -39,6 +39,5 @@ public class Trivia { //stores the answer
         public String toString() {
             return "The correct answer is " + answer + ".";
         }
-    }
 
 }
