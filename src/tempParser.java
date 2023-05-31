@@ -81,38 +81,6 @@ public class tempParser {
 //                System.out.println(morePictures);
                 animePicture.add(morePictures.getString("large"));
             }
-            //wtf is parsing
-
-//            JSONObject alternativeTitle = nodeObject.getJSONObject("alternative_title");
-//            String enTitle = alternativeTitle.getString("en");
-//            String jpTitle = alternativeTitle.getString("ja");
-//            System.out.println(enTitle + " ; " + jpTitle);
-            //System.out.println("Title: " + animeTitle + " Picture: " + pictureLink);
-//            animePicture.add(pictureLink);
-//            animePicture.add(morePictures.getString(1));
-            //put image code from load weather and make 2 arrays zzz
-            /*
-            private void loadWeather(String zip) {
-                weather = WeatherNetworking.getWeatherForZip(zip);
-                locationLabel.setText("Location: " + weather.getLocation());
-                if (showCelsiusCheckBox.isSelected()) {
-                    tempLabel.setText("Current temp: " + weather.getTempC() + "°C");
-                } else {
-                    tempLabel.setText("Current temp: " + weather.getTempF() + "°F");
-                }
-                conditionLabel.setText("Current condition: " + weather.getCondition());
-                try {
-                    URL imageURL = new URL(weather.getIconURL());
-                    BufferedImage image = ImageIO.read(imageURL);
-                    ImageIcon icon = new ImageIcon(image);
-                    conditionIcon.setIcon(icon);
-                } catch (IOException e) { }
-            }
-
-            private void clear() {
-                conditionIcon.setIcon(new ImageIcon("src/Question_mark_(black).svg.png"));
-            }
-            */
         }
     }
 
