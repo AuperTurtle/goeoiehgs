@@ -27,7 +27,7 @@ public class tempParser {
     }
 
     public static void plswork() {
-        String endpoint = "https://api.myanimelist.net/v2/anime/ranking?ranking_type=all&limit=500";
+        String endpoint = "https://api.myanimelist.net/v2/anime/ranking?ranking_type=all&limit=400";
         String url = endpoint;
         String urlResponse = "";
         try {
@@ -70,7 +70,7 @@ public class tempParser {
             JSONObject altTitles = jsonObj2.getJSONObject("alternative_titles");
 
 //            String animeTitle = jsonObj2.getString("title");
-            animeTitle += " ; " + altTitles.getString("en");
+            animeTitle += " / " + altTitles.getString("en");
             animeList.add(animeTitle);
 
             if (selectPicture(i) == 5000) {

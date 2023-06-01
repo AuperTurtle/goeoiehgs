@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -16,8 +17,9 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
     private JTextField answerBox;
     private JLabel timeDisplay;
     private JLabel playerScore;
-    private JButton tempButton;
-    private JButton tempButton2;
+    private JButton startButton;
+    private JButton restartButton;
+    private JLabel correctLabel;
     private JTextArea tempTitle;
     private int temp;
     private tempParser gameAns;
@@ -28,6 +30,7 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
     private Timer timer;
     private int currentTime;
     private boolean started;
+    private boolean correct;
 
     public TriviaGame(String chosenCategory) {
         this.chosenCategory = chosenCategory;
@@ -41,9 +44,13 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
         timer = new Timer(1000, null);
         timer.addActionListener(this);
         currentTime = 0;
-        tempButton.addActionListener(this);
-        tempButton2.addActionListener(this);
+        startButton.addActionListener(this);
+        restartButton.addActionListener(this);
         started = false;
+        answerBox.setEnabled(false);
+        correctLabel.setText("");
+        correct = false;
+        restartButton.setEnabled(false);
     }
 
     private void gamePanel() {
@@ -60,18 +67,28 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        correct = false;
         Object source = e.getSource();
         if (source instanceof JTextField) {
             String playerAns = answerBox.getText();
             answerBox.setText("");
-            System.out.println(playerAns);
+//            System.out.println(playerAns);
             if (playerAns.length() >= 6 && currentAnswer.toLowerCase().contains(playerAns.toLowerCase())) {
                 counter++;
+                correct = true;
             }
             //int temp = (int) (Math.random() * tempParser.animeList.size());
             currentAnswer = tempParser.animeList.get(temp);
-            tempText.setText(currentAnswer + " number in list: " + temp + " previous answer: " + prevAnswer);
+//            tempText.setText(currentAnswer + " number in list: " + temp + " previous answer: " + prevAnswer);
+            tempText.setText("Previous answer: " + prevAnswer);
             playerScore.setText("Player Score: " + counter);
+            if (correct) {
+                correctLabel.setForeground(Color.GREEN);
+                correctLabel.setText("[CORRECT]");
+            }   else    {
+                correctLabel.setForeground(Color.RED);
+                correctLabel.setText("[INCORRECT]");
+            }
             try {
                 URL imageURL = new URL(tempParser.animePicture.get(temp));
                 BufferedImage image = ImageIO.read(imageURL);
@@ -82,18 +99,64 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
             temp++;
             prevAnswer = currentAnswer;
         } else if (source instanceof JButton) {
-            if (tempButton.getText().equals("Start")) {
-                currentTime = 60;
+            if (source == restartButton) {
+                started = false;
+                temp = 0;
+                currentAnswer = "";
+                prevAnswer = "";
+                currentTime = 0;
+                answerBox.setEnabled(false);
+                startButton.setEnabled(true);
+                timeDisplay.setText("");
+                playerScore.setText("");
+                tempText.setText("");
+                timeDisplay.setForeground(Color.BLACK);
+                playerScore.setForeground(Color.BLACK);
+                correctLabel.setText("");
+                correct = false;
+                restartButton.setEnabled(false);
+            }
+            if (source == startButton) {
+                currentTime = 5;
                 started = true;
                 timer.start();
-            }
-            if (tempButton2.getText().equals("Restart")) {
+                answerBox.setEnabled(true);
+                startButton.setEnabled(false);
+                correctLabel.setText("");
+                correct = false;
 
+                //int temp = (int) (Math.random() * tempParser.animeList.size());
+                currentAnswer = tempParser.animeList.get(temp);
+//            tempText.setText(currentAnswer + " number in list: " + temp + " previous answer: " + prevAnswer);
+                tempText.setText("Previous answer: " + prevAnswer);
+                playerScore.setText("Player Score: " + counter);
+                if (correct) {
+                    correctLabel.setForeground(Color.GREEN);
+                    correctLabel.setText("[CORRECT]");
+                }   else    {
+                    correctLabel.setForeground(Color.RED);
+                    correctLabel.setText("[INCORRECT]");
+                }
+                try {
+                    URL imageURL = new URL(tempParser.animePicture.get(temp));
+                    BufferedImage image = ImageIO.read(imageURL);
+                    ImageIcon icon = new ImageIcon(image);
+                    picture.setIcon(icon);
+                } catch (IOException ignored) {
+                }
+                temp++;
+                prevAnswer = currentAnswer;
+
+                tempText.setText("");
+                correctLabel.setText("");
+                restartButton.setEnabled(true);
             }
         } else {
             if (started) {
                 timerFires();
-                timeDisplay.setText("Current Time: " + currentTime);
+                if (currentTime > 0) {
+                    timeDisplay.setText("Current Time: " + currentTime);
+                }
             }
         }
     }
@@ -120,6 +183,20 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
     public void keyReleased(KeyEvent e) {}
 
     public void timerFires() {
-        currentTime--;
+        if (currentTime > 0) {
+            currentTime--;
+        }   else    {
+            timer.stop();
+            playerScore.setForeground(Color.BLUE);
+            playerScore.setText("Final Score: " + counter);
+            tempText.setText("");
+            answerBox.setEnabled(false);
+            timeDisplay.setForeground(Color.RED);
+            timeDisplay.setText("TIMES UP!");
+            correctLabel.setText("");
+            correct = false;
+            ImageIcon icon = new ImageIcon("src/Question_mark_(black).svg.png");
+            picture.setIcon(icon);
+        }
     }
 }

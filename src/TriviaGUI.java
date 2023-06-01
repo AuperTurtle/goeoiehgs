@@ -22,6 +22,8 @@ public class TriviaGUI extends JFrame implements ActionListener, KeyListener {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         confirmButton.addActionListener(this);
         setVisible(true);
+        tempParser temp = new tempParser();
+        temp.plswork();
     }
 
     @Override
@@ -37,7 +39,7 @@ public class TriviaGUI extends JFrame implements ActionListener, KeyListener {
             }
             if (temp.equals("Anime")) {
                 this.dispose();
-                TriviaGame game = new TriviaGame("Cat");
+                TriviaGame game = new TriviaGame("Anime");
             }
         }
     }
