@@ -27,7 +27,7 @@ public class tempParser {
     }
 
     public static void plswork() {
-        String endpoint = "https://api.myanimelist.net/v2/anime/ranking?ranking_type=all&limit=400";
+        String endpoint = "https://api.myanimelist.net/v2/anime/ranking?ranking_type=all&limit=500";
         String url = endpoint;
         String urlResponse = "";
         try {

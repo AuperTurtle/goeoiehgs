@@ -61,7 +61,7 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         addKeyListener(this);
-        currentTime = 60;
+        currentTime = 61;
     }
 
 
@@ -73,11 +73,11 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
             String playerAns = answerBox.getText();
             answerBox.setText("");
 //            System.out.println(playerAns);
-            if (playerAns.length() >= 6 && currentAnswer.toLowerCase().contains(playerAns.toLowerCase())) {
+            if (playerAns.length() >= 5 && currentAnswer.toLowerCase().contains(playerAns.toLowerCase())) {
                 counter++;
                 correct = true;
             }
-            //int temp = (int) (Math.random() * tempParser.animeList.size());
+            int temp = (int) (Math.random() * tempParser.animeList.size());
             currentAnswer = tempParser.animeList.get(temp);
 //            tempText.setText(currentAnswer + " number in list: " + temp + " previous answer: " + prevAnswer);
             tempText.setText("Previous answer: " + prevAnswer);
@@ -115,9 +115,10 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
                 correctLabel.setText("");
                 correct = false;
                 restartButton.setEnabled(false);
+                counter = 0;
             }
             if (source == startButton) {
-                currentTime = 5;
+                currentTime = 61;
                 started = true;
                 timer.start();
                 answerBox.setEnabled(true);
@@ -125,7 +126,7 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
                 correctLabel.setText("");
                 correct = false;
 
-                //int temp = (int) (Math.random() * tempParser.animeList.size());
+                int temp = (int) (Math.random() * tempParser.animeList.size());
                 currentAnswer = tempParser.animeList.get(temp);
 //            tempText.setText(currentAnswer + " number in list: " + temp + " previous answer: " + prevAnswer);
                 tempText.setText("Previous answer: " + prevAnswer);
@@ -147,6 +148,7 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
                 temp++;
                 prevAnswer = currentAnswer;
 
+                answerBox.setText("");
                 tempText.setText("");
                 correctLabel.setText("");
                 restartButton.setEnabled(true);
