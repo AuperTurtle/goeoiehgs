@@ -41,6 +41,9 @@ public class TriviaGUI extends JFrame implements ActionListener, KeyListener {
                 this.dispose();
                 TriviaGame game = new TriviaGame("Anime");
             }
+            if (temp.equals("Typing")) {
+                TypingGame typeGame = new TypingGame();
+            }
         }
     }
 

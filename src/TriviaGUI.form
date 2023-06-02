@@ -32,6 +32,7 @@
             <item value="Cat"/>
             <item value="Dog"/>
             <item value="Anime"/>
+            <item value="Typing"/>
           </model>
         </properties>
       </component>
