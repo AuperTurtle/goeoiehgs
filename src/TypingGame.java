@@ -16,6 +16,7 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
     private JPanel typePanel;
     private String playerText;
     private String answerText;
+    private String displayString;
     private int index;
 
     public TypingGame() {
@@ -32,6 +33,7 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
         addKeyListener(this);
         setVisible(true);
         playerText = "";
+        displayString = "";
         answerText = "Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.";
         textField.setText(answerText);
         index = 0;
@@ -39,28 +41,50 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
+        if (playerText.length() < answerText.length()) {
             if (getFont().canDisplayUpTo(String.valueOf(e.getKeyChar())) == -1) {
-            sb.append(e.getKeyChar());
+                sb.append(e.getKeyChar());
 //        System.out.println(sb.toString());
-            String tempText = sb.toString();
-            playerText += tempText;
+                String tempText = sb.toString();
+                playerText += tempText;
+                displayString = "<html>";
 
                 for (int i = 0; i < playerText.length(); i++) {
                     if (String.valueOf(playerText.charAt(i)).equals(String.valueOf(answerText.charAt(i)))) {
                         System.out.println("works");
+                        displayString += "<font size='3' color=green>" + answerText.charAt(i) + "</font>";
                     } else {
                         System.out.println("broke");
+                        displayString += "<font size='3' color=red>" + answerText.charAt(i) + "</font>";
                     }
                 }
-            }   else    {
+                displayString += "<font size='3' color=black>" + answerText.substring(playerText.length()) + "</font>";
+                displayString += "<html>";
+            } else {
                 if (playerText.length() > 0) {
-            playerText = playerText.substring(0, playerText.length() - 1);
+                    playerText = playerText.substring(0, playerText.length() - 1);
+                    displayString = "<html>";
+
+                    for (int i = 0; i < playerText.length(); i++) {
+                        if (String.valueOf(playerText.charAt(i)).equals(String.valueOf(answerText.charAt(i)))) {
+                            System.out.println("works");
+                            displayString += "<font size='3' color=green>" + answerText.charAt(i) + "</font>";
+                        } else {
+                            System.out.println("broke");
+                            displayString += "<font size='3' color=red>" + answerText.charAt(i) + "</font>";
+                        }
+                    }
+                    displayString += "<font size='3' color=black>" + answerText.substring(playerText.length()) + "</font>";
+                    displayString += "<html>";
                 }
             }
             System.out.println(playerText.length());
             System.out.println(playerText);
             sb.setLength(0);
-            }
+            textField.setText(displayString);
+//            textField.setText(displayString.replaceAll(">\\s+<", "><"));
+        }
+    }
 
 
 //        for (int i = 0; i < sb.toString().length(); i++) {
