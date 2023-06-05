@@ -11,8 +11,11 @@ import java.io.IOException;
 import java.net.URL;
 
 public class TypingGame extends JFrame implements ActionListener, KeyListener {
-    private JTextField textField;
+    StringBuilder sb = new StringBuilder();
+    private JLabel textField;
     private JPanel typePanel;
+    private String playerText;
+    private String answerText;
 
     public TypingGame() {
         startPanel();
@@ -22,19 +25,47 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
     private void startPanel() {
         setContentPane(typePanel);
         setTitle("Typing Game!");
-        setSize(400, 200);
-        setLocation(450, 100);
+        setSize(1500, 400);
+        setLocation(0, 100);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        textField.addActionListener(this);
+        addKeyListener(this);
         setVisible(true);
+        playerText = "";
+        answerText = "Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.";
+        textField.setText(answerText);
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
+        sb.append(e.getKeyChar());
+        System.out.println(sb.toString());
+
+        for (int i = 0; i < sb.toString().length(); i++) {
+            if (String.valueOf(sb.toString().charAt(i)).equals(String.valueOf(answerText.charAt(i)))) {
+                System.out.println("works");
+            }   else    {
+                System.out.println("broke");
+            }
+        }
+//        System.out.println(sb.toString());
+//        String tempString = "<html><font size='4' color=red> wrong words </font> <font size='4'color=green> right words</font>";
+//        System.out.println(tempString);
+//        tempString += "<font size='4' color=blue> poop </font> </html>";
+//        System.out.println(tempString);
+
+//        playerText = sb.toString();
+//        System.out.println(playerText);
+//        textField.setText(sb.toString());
+//        textField.setText("<html><font size='4' color=red> wrong words </font> <font size='4'color=green> right words</font></html>");
+//        textField.setText(tempString);
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        if (keyCode == KeyEvent.VK_BACK_SPACE) {
+            sb.setLength(sb.length() - 1);
+        }
     }
 
     @Override
