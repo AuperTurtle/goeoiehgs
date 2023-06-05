@@ -16,6 +16,7 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
     private JPanel typePanel;
     private String playerText;
     private String answerText;
+    private int index;
 
     public TypingGame() {
         startPanel();
@@ -33,20 +34,43 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
         playerText = "";
         answerText = "Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.";
         textField.setText(answerText);
+        index = 0;
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        sb.append(e.getKeyChar());
-        System.out.println(sb.toString());
+            if (getFont().canDisplayUpTo(String.valueOf(e.getKeyChar())) == -1) {
+            sb.append(e.getKeyChar());
+//        System.out.println(sb.toString());
+            String tempText = sb.toString();
+            playerText += tempText;
 
-        for (int i = 0; i < sb.toString().length(); i++) {
-            if (String.valueOf(sb.toString().charAt(i)).equals(String.valueOf(answerText.charAt(i)))) {
-                System.out.println("works");
+                for (int i = 0; i < playerText.length(); i++) {
+                    if (String.valueOf(playerText.charAt(i)).equals(String.valueOf(answerText.charAt(i)))) {
+                        System.out.println("works");
+                    } else {
+                        System.out.println("broke");
+                    }
+                }
             }   else    {
-                System.out.println("broke");
+                if (playerText.length() > 0) {
+            playerText = playerText.substring(0, playerText.length() - 1);
+                }
             }
-        }
+            System.out.println(playerText.length());
+            System.out.println(playerText);
+            sb.setLength(0);
+            }
+
+
+//        for (int i = 0; i < sb.toString().length(); i++) {
+//            if (String.valueOf(sb.toString().charAt(i)).equals(String.valueOf(answerText.charAt(i)))) {
+//                System.out.println("works");
+//            }   else    {
+//                System.out.println("broke");
+//            }
+//        }
+
 //        System.out.println(sb.toString());
 //        String tempString = "<html><font size='4' color=red> wrong words </font> <font size='4'color=green> right words</font>";
 //        System.out.println(tempString);
@@ -58,14 +82,14 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
 //        textField.setText(sb.toString());
 //        textField.setText("<html><font size='4' color=red> wrong words </font> <font size='4'color=green> right words</font></html>");
 //        textField.setText(tempString);
-    }
+
 
     @Override
     public void keyPressed(KeyEvent e) {
-        int keyCode = e.getKeyCode();
-        if (keyCode == KeyEvent.VK_BACK_SPACE) {
-            sb.setLength(sb.length() - 1);
-        }
+//        int keyCode = e.getKeyCode();
+//        if (keyCode == KeyEvent.VK_BACK_SPACE) {
+//            sb.setLength(sb.length() - 1);
+//        }
     }
 
     @Override
