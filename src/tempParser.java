@@ -11,6 +11,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.net.*;
+import java.io.*;
 
 public class tempParser {
     public static ArrayList<String> animeList;
@@ -392,6 +394,22 @@ public class tempParser {
 //        }
 
         return 5000;
+    }
+
+    public static void plswork2() {
+        String endpoint = "https://animechan.vercel.app/api/random";
+        String url = endpoint;
+        String urlResponse = "";
+        try {
+            URI myUri = URI.create(url); // creates a URI object from the url string
+            HttpRequest request = HttpRequest.newBuilder().uri(myUri).build();
+            HttpClient client = HttpClient.newHttpClient();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            urlResponse = response.body();
+            System.out.println(urlResponse);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 
