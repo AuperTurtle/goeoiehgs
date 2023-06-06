@@ -115,6 +115,8 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
                 correctLabel.setText("");
                 correct = false;
                 restartButton.setEnabled(false);
+                ImageIcon icon = new ImageIcon("src/Question_mark_(black).svg.png");
+                picture.setIcon(icon);
                 counter = 0;
             }
             if (source == startButton) {
