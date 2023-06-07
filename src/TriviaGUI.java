@@ -16,8 +16,8 @@ public class TriviaGUI extends JFrame implements ActionListener, KeyListener {
 
     private void startPanel() {
         setContentPane(mainPanel);
-        setTitle("Trivia Game!");
-        setSize(400, 200);
+        setTitle("Fun Portal!");
+        setSize(800, 400);
         setLocation(450, 100);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         confirmButton.addActionListener(this);
@@ -31,12 +31,6 @@ public class TriviaGUI extends JFrame implements ActionListener, KeyListener {
         Object source = e.getSource();
         if (source instanceof JButton) {
             String temp = typeSelector.getSelectedItem().toString();
-            if (temp.equals("Cat")) {
-                System.out.println("its a cat");
-            }
-            if (temp.equals("Dog")) {
-                System.out.println("its a dog");
-            }
             if (temp.equals("Anime")) {
                 this.dispose();
                 TriviaGame game = new TriviaGame("Anime");

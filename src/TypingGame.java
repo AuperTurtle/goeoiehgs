@@ -50,6 +50,7 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
         scoreLabel.setText("WPM: ? ; Accuracy: ? ; Time: ?");
         wpm = 0;
         accuracy = 0;
+        totalTyped = 0;
         quotes = true;
         sixty = false;
         thirty = false;
@@ -67,6 +68,7 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
         if (playerText.length() != answerText.length() && (timeLeft - currentTime ) > -1) {
             counter = 0;
             accuracy = 0;
+            totalTyped = 0;
 //            if (getFont().canDisplayUpTo(String.valueOf(e.getKeyChar())) == -1) {
                 if (e.getKeyChar() != KeyEvent.VK_BACK_SPACE) {
                 sb.append(e.getKeyChar());
@@ -80,11 +82,11 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
 //                        System.out.println("works");
                         displayString += "<font size='5' color=green>" + answerText.charAt(i) + "</font>";
                         counter++;
-                        accuracy++;
+                        totalTyped++;
                     } else {
 //                        System.out.println("broke");
                         displayString += "<font size='5' color=red>" + answerText.charAt(i) + "</font>";
-                        accuracy++;
+                        totalTyped++;
                     }
                 }
                 displayString += "<font size='5' color=black>" + answerText.substring(playerText.length()) + "</font>";
@@ -99,11 +101,11 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
 //                            System.out.println("works");
                             displayString += "<font size='5' color=green>" + answerText.charAt(i) + "</font>";
                             counter++;
-                            accuracy++;
+                            totalTyped++;
                         } else {
 //                            System.out.println("broke");
                             displayString += "<font size='5' color=red>" + answerText.charAt(i) + "</font>";
-                            accuracy++;
+                            totalTyped++;
                         }
                     }
                     displayString += "<font size='5' color=black>" + answerText.substring(playerText.length()) + "</font>";
@@ -161,12 +163,15 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
                 modeSelector.setEnabled(false);
                 startButton.setEnabled(false);
                 restartButton.setEnabled(false);
+                scoreLabel.setText("WPM: ? ; Accuracy: ? ; Time: ?");
+                textField.setText("");
                 playerText = "";
                 currentTime = 0;
                 counter = 0;
                 wpm = 0;
                 accuracy = 0;
-                textField.setText("");
+                totalTyped = 0;
+
 
                 if (quotes) {
                     timeLeft = Integer.MAX_VALUE;
@@ -200,6 +205,7 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
                 wpm = 0;
                 accuracy = 0;
                 currentTime = 0;
+                totalTyped = 0;
                 textField.setText("");
                 playerText = "";
             }
@@ -236,9 +242,10 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
             timerFires();
             if (playerText.length() != answerText.length() && (timeLeft - currentTime > -1)) {
                 wpm = (((double) counter / 5) / (double) currentTime) * 60;
-                accuracy = ((counter * 100) / accuracy);
                 wpm = (double) Math.round(wpm * 100) / 100;
-                accuracy = (double) Math.round(accuracy * 100) / 100;
+                accuracy = (double) Math.round(((double) counter / totalTyped) * 10000) / 100;
+                System.out.println("counter: " + counter);
+                System.out.println("acc: " + accuracy);
                 if (currentTime > 3) {
                     restartButton.setEnabled(true);
                 }
@@ -248,6 +255,9 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
                     scoreLabel.setText("WPM: " + wpm + " ; Accuracy: " + accuracy + "%" + " ; Time Remaining: " + (timeLeft - currentTime));
                 }
             } else {
+                wpm = (((double) counter / 5) / (double) currentTime) * 60;
+                wpm = (double) Math.round(wpm * 100) / 100;
+                accuracy = (double) Math.round(((double) counter / totalTyped) * 10000) / 100;
                 scoreLabel.setText("Final WPM: " + wpm + " ; Final Accuracy: " + accuracy + "%");
                 timer.stop();
                 textField.setText("");

@@ -22,8 +22,6 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
     private JLabel correctLabel;
     private JTextArea tempTitle;
     private int temp;
-    private tempParser gameAns;
-    private String answer;
     private int counter;
     private String currentAnswer;
     private String prevAnswer;
@@ -37,7 +35,6 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
         gamePanel();
         this.temp = 0;
         counter = 0;
-        gameAns = null;
         answerBox.addActionListener(this);
         currentAnswer = "";
         prevAnswer = "";
@@ -55,7 +52,7 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
 
     private void gamePanel() {
         setContentPane(gamePanel);
-        setTitle("pls work");
+        setTitle("Fun Portal!");
         setSize(1100, 1100);
         setLocation(200 , 0);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
