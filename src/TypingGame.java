@@ -1,20 +1,14 @@
 import javax.swing.*;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
+import java.awt.event.*;
 
 public class TypingGame extends JFrame implements ActionListener, KeyListener {
     StringBuilder sb = new StringBuilder();
     private JLabel textField;
     private JPanel typePanel;
     private JLabel scoreLabel;
+    private JButton startButton;
+    private JButton restartButton;
+    private JComboBox modeSelector;
     private String playerText;
     private String answerText;
     private String displayString;
@@ -23,15 +17,20 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
     private int currentTime;
     private double accuracy;
     private double wpm;
+    private int timeLeft;
+    private boolean quotes;
+    private boolean sixty;
+    private boolean thirty;
+    private boolean fifteen;
+    private int totalTyped;
 
     public TypingGame() {
         startPanel();
     }
 
-
     private void startPanel() {
         setContentPane(typePanel);
-        setTitle("Typing Game!");
+        setTitle("\uD83D\uDC22 Turtle Type! \uD83D\uDC22");
         setSize(1500, 400);
         setLocation(0, 0);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -39,23 +38,33 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
         setVisible(true);
         playerText = "";
         displayString = "";
-        answerText = "Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.";
+        answerText = "";
         textField.setText(String.format("<html><div style=\"width:%dpx;\">%s</div></html>", 700, "<html> <font size='5' color=black>" + answerText + "</font> <html>"));
         counter = 0;
         timer = new Timer(1000, null);
         timer.addActionListener(this);
+        startButton.addActionListener(this);
+        restartButton.addActionListener(this);
+        modeSelector.addActionListener(this);
         currentTime = 0;
-        scoreLabel.setText("WPM: ? ; Accuracy: ?");
-        timer.start();
+        scoreLabel.setText("WPM: ? ; Accuracy: ? ; Time: ?");
         wpm = 0;
         accuracy = 0;
+        quotes = true;
+        sixty = false;
+        thirty = false;
+        fifteen = false;
+        timeLeft = 0;
         tempParser temp = new tempParser();
         temp.plswork2();
+        temp.plswork3();
+        setFocusable(true);
+        requestFocus(); //for some reason these 2 lines let me do stuff with buttons and text ok
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        if (playerText.length() < answerText.length()) {
+        if (playerText.length() != answerText.length() && (timeLeft - currentTime ) > -1) {
             counter = 0;
             accuracy = 0;
 //            if (getFont().canDisplayUpTo(String.valueOf(e.getKeyChar())) == -1) {
@@ -146,15 +155,106 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        timerFires();
-        if (playerText.length() != answerText.length()) {
-            wpm = (((double) counter / 5) / (double) currentTime) * 60;
-            accuracy = ((counter * 100) / accuracy);
-            wpm = (double) Math.round(wpm * 100) / 100;
-            accuracy = (double) Math.round(accuracy * 100) / 100;
-            scoreLabel.setText("WPM: " + wpm + " ; Accuracy: " + accuracy + "%");
+        Object source = e.getSource();
+        if (source instanceof JButton) {
+            if (source == startButton) {
+                modeSelector.setEnabled(false);
+                startButton.setEnabled(false);
+                restartButton.setEnabled(false);
+                playerText = "";
+                currentTime = 0;
+                counter = 0;
+                wpm = 0;
+                accuracy = 0;
+                textField.setText("");
+
+                if (quotes) {
+                    timeLeft = Integer.MAX_VALUE;
+                    answerText = tempParser.quotesList.get((int) (Math.random() * tempParser.quotesList.size()));
+                }   else    {
+                    if (sixty) {
+                        timeLeft = 60;
+                    }
+                    if (thirty) {
+                        timeLeft = 30;
+                    }
+                    if (fifteen) {
+                        timeLeft = 15;
+                    }
+                    answerText = tempParser.wordList.get((int) (Math.random() * tempParser.wordList.size()));
+                    for (int i = 0; i < tempParser.wordList.size(); i++) {
+                        answerText += " " + tempParser.wordList.get((int) (Math.random() * tempParser.wordList.size()));
+                    }
+                }
+                textField.setText(String.format("<html><div style=\"width:%dpx;\">%s</div></html>", 700, "<html> <font size='5' color=black>" + answerText + "</font> <html>"));
+                timer.start();
+            }
+            if (source == restartButton) {
+                restartButton.setEnabled(false);
+                modeSelector.setEnabled(true);
+                startButton.setEnabled(true);
+                answerText = "";
+                timer.stop();
+                scoreLabel.setText("WPM: ? ; Accuracy: ? ; Time: ?");
+                counter = 0;
+                wpm = 0;
+                accuracy = 0;
+                currentTime = 0;
+                textField.setText("");
+                playerText = "";
+            }
+        }   else if
+        (source instanceof JComboBox) {
+            if (modeSelector.getSelectedItem().toString().equals("Quotes")) {
+                quotes = true;
+                sixty = false;
+                thirty = false;
+                fifteen = false;
+            }
+            if (modeSelector.getSelectedItem().toString().equals("Time (60s)")) {
+                System.out.println("60s");
+                quotes = false;
+                sixty = true;
+                thirty = false;
+                fifteen = false;
+            }
+            if (modeSelector.getSelectedItem().toString().equals("Time (30s)")) {
+                System.out.println("30s");
+                quotes = false;
+                sixty = false;
+                thirty = true;
+                fifteen = false;
+            }
+            if (modeSelector.getSelectedItem().toString().equals("Time (15s)")) {
+                System.out.println("15s");
+                quotes = false;
+                sixty = false;
+                thirty = false;
+                fifteen = true;
+            }
         }   else    {
-            timer.stop();
+            timerFires();
+            if (playerText.length() != answerText.length() && (timeLeft - currentTime > -1)) {
+                wpm = (((double) counter / 5) / (double) currentTime) * 60;
+                accuracy = ((counter * 100) / accuracy);
+                wpm = (double) Math.round(wpm * 100) / 100;
+                accuracy = (double) Math.round(accuracy * 100) / 100;
+                if (currentTime > 3) {
+                    restartButton.setEnabled(true);
+                }
+                if (quotes) {
+                    scoreLabel.setText("WPM: " + wpm + " ; Accuracy: " + accuracy + "%" + " Time Taken: " + currentTime);
+                }   else    {
+                    scoreLabel.setText("WPM: " + wpm + " ; Accuracy: " + accuracy + "%" + " ; Time Remaining: " + (timeLeft - currentTime));
+                }
+            } else {
+                scoreLabel.setText("Final WPM: " + wpm + " ; Final Accuracy: " + accuracy + "%");
+                timer.stop();
+                textField.setText("");
+                startButton.setEnabled(true);
+                modeSelector.setEnabled(true);
+                restartButton.setEnabled(false);
+            }
         }
     }
 

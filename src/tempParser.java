@@ -19,12 +19,16 @@ public class tempParser {
     public static ArrayList<String> animeList2;
     public static ArrayList<String> animePicture;
     public static ArrayList<Integer> animeIDList;
+    public static ArrayList<String> wordList;
+    public static ArrayList<String> quotesList;
 
     public tempParser() {
         this.animeList = new ArrayList<String>();
         this.animeList2 = new ArrayList<String>();
         this.animePicture = new ArrayList<String>();
         this.animeIDList = new ArrayList<Integer>();
+        this.wordList = new ArrayList<String>();
+        this.quotesList = new ArrayList<String>();
     }
 
     public static void plswork() {
@@ -397,7 +401,7 @@ public class tempParser {
     }
 
     public static void plswork2() {
-        String endpoint = "https://animechan.vercel.app/api/random";
+        String endpoint = "https://random-word-api.vercel.app/api?words=500";
         String url = endpoint;
         String urlResponse = "";
         try {
@@ -406,9 +410,38 @@ public class tempParser {
             HttpClient client = HttpClient.newHttpClient();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             urlResponse = response.body();
-            System.out.println(urlResponse);
+//            System.out.println(urlResponse);
+            JSONArray jsonArr = new JSONArray(urlResponse);
+            for (int i = 0; i < jsonArr.length(); i++) {
+                wordList.add(jsonArr.get(i).toString());
+            }
+//            System.out.println(wordList.get((int) Math.random() * wordList.size()));
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static void plswork3() {
+        for (int i = 0; i < 30; i++) {
+            String endpoint = "https://kyoko.rei.my.id/api/quotes.php";
+            String url = endpoint;
+            String urlResponse = "";
+            try {
+                URI myUri = URI.create(url); // creates a URI object from the url string
+                HttpRequest request = HttpRequest.newBuilder().uri(myUri).build();
+                HttpClient client = HttpClient.newHttpClient();
+                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                urlResponse = response.body();
+//                System.out.println(urlResponse);
+                JSONObject jsonObj = new JSONObject(urlResponse);
+                JSONArray jsonArr = jsonObj.getJSONArray("apiResult");
+                JSONObject jsonObj2 = jsonArr.getJSONObject(0);
+//            System.out.println(jsonObj2);
+                quotesList.add(jsonObj2.getString("english"));
+//                System.out.println(quotesList.get(0));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
