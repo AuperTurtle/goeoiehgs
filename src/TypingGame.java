@@ -31,7 +31,7 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
     private void startPanel() {
         setContentPane(typePanel);
         setTitle("\uD83D\uDC22 Turtle Type! \uD83D\uDC22");
-        setSize(1500, 400);
+        setSize(1400, 500);
         setLocation(0, 0);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         addKeyListener(this);
@@ -66,6 +66,7 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {
         if (playerText.length() != answerText.length() && (timeLeft - currentTime ) > -1) {
+            timer.start();
             counter = 0;
             accuracy = 0;
             totalTyped = 0;
@@ -80,7 +81,7 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
                 for (int i = 0; i < playerText.length(); i++) {
                     if (String.valueOf(playerText.charAt(i)).equals(String.valueOf(answerText.charAt(i)))) {
 //                        System.out.println("works");
-                        displayString += "<font size='5' color=green>" + answerText.charAt(i) + "</font>";
+                        displayString += "<font size='5' color=white>" + answerText.charAt(i) + "</font>";
                         counter++;
                         totalTyped++;
                     } else {
@@ -89,7 +90,7 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
                         totalTyped++;
                     }
                 }
-                displayString += "<font size='5' color=black>" + answerText.substring(playerText.length()) + "</font>";
+                displayString += "<font size='5' color=grey>" + answerText.substring(playerText.length()) + "</font>";
                 displayString += "<html>";
             } else {
                 if (playerText.length() > 0) {
@@ -99,7 +100,7 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
                     for (int i = 0; i < playerText.length(); i++) {
                         if (String.valueOf(playerText.charAt(i)).equals(String.valueOf(answerText.charAt(i)))) {
 //                            System.out.println("works");
-                            displayString += "<font size='5' color=green>" + answerText.charAt(i) + "</font>";
+                            displayString += "<font size='5' color=white>" + answerText.charAt(i) + "</font>";
                             counter++;
                             totalTyped++;
                         } else {
@@ -108,7 +109,7 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
                             totalTyped++;
                         }
                     }
-                    displayString += "<font size='5' color=black>" + answerText.substring(playerText.length()) + "</font>";
+                    displayString += "<font size='5' color=grey>" + answerText.substring(playerText.length()) + "</font>";
                     displayString += "<html>";
                 }
             }
@@ -192,7 +193,6 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
                     }
                 }
                 textField.setText(String.format("<html><div style=\"width:%dpx;\">%s</div></html>", 700, "<html> <font size='5' color=black>" + answerText + "</font> <html>"));
-                timer.start();
             }
             if (source == restartButton) {
                 restartButton.setEnabled(false);
@@ -244,8 +244,8 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
                 wpm = (((double) counter / 5) / (double) currentTime) * 60;
                 wpm = (double) Math.round(wpm * 100) / 100;
                 accuracy = (double) Math.round(((double) counter / totalTyped) * 10000) / 100;
-                System.out.println("counter: " + counter);
-                System.out.println("acc: " + accuracy);
+//                System.out.println("counter: " + counter);
+//                System.out.println("acc: " + accuracy);
                 if (currentTime > 3) {
                     restartButton.setEnabled(true);
                 }
@@ -272,4 +272,7 @@ public class TypingGame extends JFrame implements ActionListener, KeyListener {
         currentTime++;
     }
 
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
 }

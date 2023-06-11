@@ -3,9 +3,12 @@
   <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="5" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="807" height="400"/>
+      <xy x="20" y="20" width="809" height="400"/>
     </constraints>
-    <properties/>
+    <properties>
+      <background color="-7423047"/>
+      <foreground color="-7423047"/>
+    </properties>
     <border type="none" title=""/>
     <children>
       <component id="7f079" class="javax.swing.JLabel" binding="title">
@@ -13,6 +16,8 @@
           <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <font name="Marker Felt" size="48" style="3"/>
+          <foreground color="-14940185"/>
           <horizontalAlignment value="0"/>
           <horizontalTextPosition value="0"/>
           <text value="Choose a Game:"/>
@@ -28,6 +33,10 @@
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-7232309"/>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <foreground color="-15527149"/>
           <model>
             <item value="Anime"/>
             <item value="Typing"/>
@@ -39,6 +48,10 @@
           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-4412727"/>
+          <enabled value="true"/>
+          <font name="Futura" size="22" style="1"/>
+          <foreground color="-7814209"/>
           <text value="Confirm"/>
         </properties>
       </component>

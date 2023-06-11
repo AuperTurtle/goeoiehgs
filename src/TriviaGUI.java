@@ -33,6 +33,14 @@ public class TriviaGUI extends JFrame implements ActionListener, KeyListener {
             String temp = typeSelector.getSelectedItem().toString();
             if (temp.equals("Anime")) {
                 this.dispose();
+                try
+                {
+                    Thread.sleep(3000);
+                }
+                catch(InterruptedException ex)
+                {
+                    ex.printStackTrace();
+                }
                 TriviaGame game = new TriviaGame("Anime");
             }
             if (temp.equals("Typing")) {
@@ -51,4 +59,7 @@ public class TriviaGUI extends JFrame implements ActionListener, KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {}
 
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
 }

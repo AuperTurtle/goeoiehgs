@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class TriviaGame extends JFrame implements ActionListener, KeyListener {
     private String chosenCategory;
@@ -20,6 +21,8 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
     private JButton startButton;
     private JButton restartButton;
     private JLabel correctLabel;
+    private JLabel randomText2;
+    private JLabel randomText;
     private JTextArea tempTitle;
     private int temp;
     private int counter;
@@ -29,8 +32,10 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
     private int currentTime;
     private boolean started;
     private boolean correct;
+    private ArrayList<String> repeat;
 
     public TriviaGame(String chosenCategory) {
+        this.repeat = new ArrayList<String>();
         this.chosenCategory = chosenCategory;
         gamePanel();
         this.temp = 0;
@@ -53,7 +58,7 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
     private void gamePanel() {
         setContentPane(gamePanel);
         setTitle("Fun Portal!");
-        setSize(1100, 1100);
+        setSize(1600, 1600);
         setLocation(200 , 0);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
@@ -74,7 +79,8 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
                 counter++;
                 correct = true;
             }
-            int temp = (int) (Math.random() * tempParser.animeList.size());
+            int temp = repeatCheck();
+            repeatUpdate(temp);
             currentAnswer = tempParser.animeList.get(temp);
 //            tempText.setText(currentAnswer + " number in list: " + temp + " previous answer: " + prevAnswer);
             tempText.setText("Previous answer: " + prevAnswer);
@@ -97,6 +103,9 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
             prevAnswer = currentAnswer;
         } else if (source instanceof JButton) {
             if (source == restartButton) {
+                randomText.setVisible(true);
+                randomText2.setVisible(true);
+                repeat.clear();
                 started = false;
                 temp = 0;
                 currentAnswer = "";
@@ -117,6 +126,9 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
                 counter = 0;
             }
             if (source == startButton) {
+                randomText.setVisible(false);
+                randomText2.setVisible(false);
+                repeat.clear();
                 currentTime = 61;
                 started = true;
                 timer.start();
@@ -125,7 +137,8 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
                 correctLabel.setText("");
                 correct = false;
 
-                int temp = (int) (Math.random() * tempParser.animeList.size());
+                int temp = repeatCheck();
+                repeatUpdate(temp);
                 currentAnswer = tempParser.animeList.get(temp);
 //            tempText.setText(currentAnswer + " number in list: " + temp + " previous answer: " + prevAnswer);
                 tempText.setText("Previous answer: " + prevAnswer);
@@ -199,5 +212,17 @@ public class TriviaGame extends JFrame implements ActionListener, KeyListener {
             ImageIcon icon = new ImageIcon("src/Question_mark_(black).svg.png");
             picture.setIcon(icon);
         }
+    }
+
+    private int repeatCheck() {
+        int temp = (int) (Math.random() * tempParser.animeList.size());
+        while (repeat.contains(tempParser.animeList.get(temp))) {
+            temp = (int) (Math.random() * tempParser.animeList.size());
+        }
+        return temp;
+    }
+
+    private void repeatUpdate(int num) {
+        repeat.add(tempParser.animeList.get(num));
     }
 }
